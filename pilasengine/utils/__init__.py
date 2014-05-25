@@ -41,28 +41,52 @@ class Utils(object):
         return isinstance(valor, list) or (isinstance(valor, tuple) and
                                            len(valor) == 2)
 
-    def interpolar(self, actor, atributo, valor):
-        duracion = 0.5
+    def interpolar(self, actor, atributo, valor, event_update,
+                   event_complete):
 
         if isinstance(valor, tuple):
             duracion = valor[1]
-            valor = valor[0]
+            if event_complete is None:
+                _valor = valor[0]
+            else:
+                _valor = valor[0][:-1]
+                valor = valor[0]
+        else:
+            duracion = 0.5
+            if event_complete is None:
+                _valor = valor
+            else:
+                _valor = valor[:-1]
 
         tweener = self.pilas.obtener_escena_actual().tweener
         anterior = None
 
-        for (i, x) in enumerate(valor):
+        for (i, x) in enumerate(_valor):
             demora_inicial = i * duracion
             parametro = {atributo: x}
             tweener.add_tween(actor, tween_time=duracion,
                               tween_type=tweener.IN_OUT_QUAD,
                               tween_delay=demora_inicial,
                               inicial=anterior,
+                              on_update_function=event_update,
                               **parametro)
             anterior = x
 
+        if event_complete:
+            i = len(valor) - 1
+            x = valor[-1]
+            demora_inicial = i * duracion
+            parametro = {atributo: x}
+            tweener.add_tween(actor, tween_time=duracion,
+                              tween_type=tweener.IN_OUT_QUAD,
+                              tween_delay=demora_inicial,
+                              inicial=anterior,
+                              on_update_function=event_update,
+                              on_complete_function=event_complete,
+                              **parametro)
+
     def interpretar_propiedad_numerica(self, objeto, propiedad, valor,
-                                       evento=None):
+                                       event_update=None, event_complete=None):
         """Procesa una propiedad y permite que sea numero o interpolación.
 
         Este método se invoca en la mayoría de propiedades y atributos
@@ -76,11 +100,10 @@ class Utils(object):
             >>> actor.escala = [2], 10
         """
         if isinstance(valor, int) or isinstance(valor, float):
-            if evento:
-                evento.emitir(propiedad=valor)
             setattr(objeto, '_' + propiedad, valor)
         elif self.es_interpolacion(valor):
-            self.interpolar(objeto, propiedad, valor)
+            self.interpolar(objeto, propiedad, valor, event_update,
+                            event_complete)
         else:
             raise Exception("Solo se pueden asignar números o interpolaciones.")
 

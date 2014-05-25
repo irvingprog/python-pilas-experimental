@@ -367,32 +367,31 @@ class Tween(object):
                     self.delay = -1
                     return  # ARREGLO PARA EVITAR QUE DOS INTERPOLACIONES SE SOLAPEN.
                 if self.update_function:
-                    self.update_function()
+                    pass
             return
 
         self.delta = min(self.delta + ptime, self.duration)
 
         if not self.complete:
             for prop_name, prop, tweenable in self.t_props:
-                setattr(self.target, prop,
-                        self.tween(self.delta, tweenable.start_value,
-                                   tweenable.change, self.duration))
+                tween = self.tween(self.delta, tweenable.start_value,
+                                   tweenable.change, self.duration)
+
+                if self.update_function:
+                    self.update_function.emitir(propiedad=tween)
+
+                setattr(self.target, prop, tween)
+
             for func_name, func, tweenable in self.t_funcs:
                 func(
                     self.tween(self.delta, tweenable.start_value,
                                tweenable.change, self.duration)
                 )
 
-
         if self.delta == self.duration:
             self.complete = True
             if self.complete_function:
-                self.complete_function()
-
-        if self.update_function:
-            self.update_function()
-
-
+                self.complete_function.emitir(propiedad=tween)
 
     def get_tweenable(self, name):
         """Return the tweenable values corresponding to the name of the original
