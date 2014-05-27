@@ -46,22 +46,23 @@ class Utils(object):
 
         if isinstance(valor, tuple):
             duracion = valor[1]
-            if event_complete is None:
-                _valor = valor[0]
+            if event_complete:
+                valores_de_interpolacion = valor[0][:-1]
+                ultima_interpolacion = valor[0][-1]
             else:
-                _valor = valor[0][:-1]
-                valor = valor[0]
+                valores_de_interpolacion = valor[0]
         else:
             duracion = 0.5
-            if event_complete is None:
-                _valor = valor
+            if event_complete:
+                valores_de_interpolacion = valor[:-1]
+                ultima_interpolacion = valor[-1]
             else:
-                _valor = valor[:-1]
+                valores_de_interpolacion = valor
 
         tweener = self.pilas.obtener_escena_actual().tweener
         anterior = None
 
-        for (i, x) in enumerate(_valor):
+        for (i, x) in enumerate(valores_de_interpolacion):
             demora_inicial = i * duracion
             parametro = {atributo: x}
             tweener.add_tween(actor, tween_time=duracion,
@@ -74,7 +75,7 @@ class Utils(object):
 
         if event_complete:
             i = len(valor) - 1
-            x = valor[-1]
+            x = ultima_interpolacion
             demora_inicial = i * duracion
             parametro = {atributo: x}
             tweener.add_tween(actor, tween_time=duracion,

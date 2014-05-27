@@ -70,8 +70,7 @@ class Camara(object):
 
     def definir_x(self, valor):
         self.pilas.utils.interpretar_propiedad_numerica(self, 'x', valor,
-                                                        self.cuando_mueve_camara_x,
-                                                        self.cuando_termina)
+                                                        self.cuando_mueve_camara_x)
 
     def cuando_cambia_x(self, evento):
         self.pilas.eventos.mueve_camara.emitir(x=evento.propiedad, y=self.y,
