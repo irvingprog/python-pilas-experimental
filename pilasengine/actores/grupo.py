@@ -28,9 +28,21 @@ class Grupo(object):
     """
 
     def __init__(self, pilas):
-        self.pilas = pilas
+        self.__dict__['pilas'] = pilas
         self.pilas.log("Creando el grupo", self)
-        self._actores = []
+        self.__dict__['_actores'] = []
+
+    def __setattr__(self, atributo, valor):
+        for actor in self._actores:
+            setattr(actor, atributo, valor)
+
+    def __getattr__(self, atributo):
+        def map_a_todos(*args, **kwargs):
+            for actor in self._actores:
+                funcion = getattr(actor, atributo)
+                funcion(*args, **kwargs)
+
+        return map_a_todos
 
     def obtener_cantidad_de_actores(self):
         return len(self._actores)
