@@ -33,8 +33,7 @@ class Grupo(object):
         self.__dict__['_actores'] = []
 
     def __setattr__(self, atributo, valor):
-        for actor in self._actores:
-            setattr(actor, atributo, valor)
+        self.definir_valor_de_atributo(atributo, valor)
 
     def __getattr__(self, atributo):
         def map_a_todos(*args, **kwargs):
@@ -43,6 +42,21 @@ class Grupo(object):
                 funcion(*args, **kwargs)
 
         return map_a_todos
+
+    def definir_valor_de_atributo(self, atributo, valor):
+        [setattr(actor, atributo, valor) for actor in self._actores]
+
+    def obtener_valor_de_atributo(self, atributo):
+        return [(actor.__class__.__name__, getattr(actor, atributo))
+                for actor in self._actores]
+
+    def definir_x(self, valor):
+        self.definir_valor_de_atributo('x', valor)
+
+    def obtener_x(self):
+        return self.obtener_valor_de_atributo('x')
+
+    x = property(obtener_x, definir_x, doc="Posicion X de todos los actores")
 
     def obtener_cantidad_de_actores(self):
         return len(self._actores)
