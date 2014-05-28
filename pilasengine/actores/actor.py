@@ -204,10 +204,10 @@ class Actor(Estudiante):
 
         # Vuelve al punto inicial para dibujar el
         # modo depuración.
-        painter.translate(dx, dy)
-
+        painter.restore()
+        painter.save()
+        painter.translate(x, -y)
         self.pilas.depurador.cuando_dibuja_actor(self, painter)
-
         painter.restore()
 
     ## Métodos internos
