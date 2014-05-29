@@ -120,11 +120,11 @@ class Actor(Estudiante):
         self.y = 0
         self.z = 0
         self.rotacion = 0
-        self.escala_x = 1
-        self.escala_y = 1
+        self._escala = 1
+        self._escala_x = 1
+        self._escala_y = 1
         self.transparencia = 0
         self.espejado = False
-        self.centro = ('centro', 'centro')
         self.fijo = False
 
         self.id = pilas.utils.obtener_uuid()
@@ -190,8 +190,8 @@ class Actor(Estudiante):
         dx, dy = self.centro
         painter.translate(x, -y)
         painter.rotate(-self.rotacion)
-        painter.scale(escala_x, escala_y)
         painter.translate(-dx, -dy)
+        painter.scale(escala_x, escala_y)
 
         if self.transparencia:
             painter.setOpacity(1 - self.transparencia/100.0)
@@ -221,6 +221,8 @@ class Actor(Estudiante):
             imagen = imagen_o_ruta
 
         self._imagen = imagen
+        self.ancho = self.imagen.ancho()
+        self.alto = self.imagen.alto()
         self.centro = ("centro", "centro")
 
     # Propiedades
@@ -346,11 +348,17 @@ class Actor(Estudiante):
         #  ultima_escala          self.radio_de_colision
         #  s                      ?
 
+        self.pilas.utils.interpretar_propiedad_numerica(self, 'escala', s)
         self.escala_x = s
         self.escala_y = s
-        s = self.escala_x
+        s = self.escala
         self.radio_de_colision = ((s * self.radio_de_colision) /
                                   max(ultima_escala, 0.0001))
+
+        self.ancho = ((s * self.ancho) / max(ultima_escala, 0.0001))
+        self.alto = ((s * self.alto) / max(ultima_escala, 0.0001))
+
+        self.centro = ('centro', 'centro')
 
     def definir_escala_x(self, s):
         self.pilas.utils.interpretar_propiedad_numerica(self, 'escala_x', s)
@@ -754,13 +762,22 @@ class Actor(Estudiante):
         return duplicado
 
     def obtener_ancho(self):
-        return self.imagen.ancho()
+        return self._ancho
+
+    def definir_ancho(self, ancho):
+        self._ancho = ancho
 
     def obtener_alto(self):
-        return self.imagen.alto()
+        return self._alto
 
-    ancho = property(obtener_ancho, doc="Obtiene el ancho del Actor.")
-    alto = property(obtener_alto, doc="Obtiene el alto del Actor.")
+    def definir_alto(self, alto):
+        self._alto = alto
+
+    ancho = property(obtener_ancho, definir_ancho,
+                     doc="Obtiene el ancho del Actor.")
+
+    alto = property(obtener_alto, definir_alto,
+                    doc="Obtiene el alto del Actor.")
 
     def __mul__(self, cantidad):
         if type(cantidad) is not int or cantidad < 1:
@@ -775,11 +792,7 @@ class Actor(Estudiante):
         return "<%s en (%d, %d)>" % (self.__class__.__name__, self.x, self.y)
 
     def obtener_escala(self):
-        return self._escala_x
-
-    def definir_escala(self, escala):
-        self._escala_x = escala
-        self._escala_y = escala
+        return self._escala
 
     def definir_transparencia(self, valor):
         self._transparencia = valor
