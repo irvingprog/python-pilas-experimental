@@ -11,18 +11,15 @@ from pilasengine import habilidades
 class Arrastrable(habilidades.Habilidad):
     def iniciar(self, receptor):
         super(Arrastrable, self).iniciar(receptor)
-        self.pilas.eventos.click_de_mouse.conectar(self.intentar_arrastrar)
+        #self.pilas.eventos.click_de_mouse.conectar(self.intentar_arrastrar)
 
-    def intentar_arrastrar(self, evento):
-        if (evento.boton == 1 and
-                self.receptor.colisiona_con_un_punto(evento.x, evento.y)):
+    def intentar_arrastrar(self):
+        self.pilas.eventos.termina_click.conectar(self.termina_de_arrastrar,
+                                                  id="termina_de_arrastrar_"+repr(self.receptor))
 
-            self.pilas.eventos.termina_click.conectar(self.termina_de_arrastrar,
-                                                      id="termina_de_arrastrar")
-
-            self.pilas.eventos.mueve_mouse.conectar(self.arrastrando,
-                                                    id="arrastrando")
-            self.intentar_capturar_figura()
+        self.pilas.eventos.mueve_mouse.conectar(self.arrastrando,
+                                                id="arrastrando_"+repr(self.receptor))
+        self.intentar_capturar_figura()
 
     def intentar_capturar_figura(self):
         if self._el_receptor_tiene_fisica():
@@ -36,8 +33,8 @@ class Arrastrable(habilidades.Habilidad):
             self.receptor.y = evento.y
 
     def termina_de_arrastrar(self, evento):
-        self.pilas.eventos.mueve_mouse.desconectar_por_id("arrastrando")
-        self.pilas.eventos.termina_click.desconectar_por_id("termina_de_arrastrar")
+        self.pilas.eventos.mueve_mouse.desconectar_por_id("arrastrando_"+repr(self.receptor))
+        self.pilas.eventos.termina_click.desconectar_por_id("termina_de_arrastrar_"+repr(self.receptor))
         self.pilas.fisica.cuando_suelta_el_mouse()
 
     def _el_receptor_tiene_fisica(self):

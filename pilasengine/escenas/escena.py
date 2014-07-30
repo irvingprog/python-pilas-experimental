@@ -40,6 +40,8 @@ class Escena(object):
         self.fisica.iniciar()
         self.colisiones = Colisiones(pilas, self)
 
+        self.click_de_mouse.conectar(self.arrastrar_actor_mas_cercano)
+
     def iniciar(self):
         pass
 
@@ -89,10 +91,14 @@ class Escena(object):
         self.grupos.append(grupo)
 
     def obtener_actores_en(self, x, y):
-        actores = []
+        return [a for a in self._actores.obtener_actores() 
+                if a.colisiona_con_un_punto(x, y)]
 
-        for actor in self._actores.obtener_actores():
-            if actor.colisiona_con_un_punto(x, y):
-                actores.append(actor)
-
-        return actores
+    def arrastrar_actor_mas_cercano(self, e):
+        actores_debajo_de_mouse = self.obtener_actores_en(e.x, e.y)
+        if actores_debajo_de_mouse:
+            actores_debajo_de_mouse.sort()
+            actor_mas_cercano = actores_debajo_de_mouse[-1]
+            
+            if actor_mas_cercano.tiene_habilidad(self.pilas.habilidades.Arrastrable):
+                actor_mas_cercano.habilidades.Arrastrable.intentar_arrastrar()

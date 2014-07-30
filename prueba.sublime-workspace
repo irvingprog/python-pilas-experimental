@@ -1,0 +1,866 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"reves",
+				"reverse_line"
+			],
+			[
+				"desl",
+				"deslizador_escala"
+			],
+			[
+				"acto",
+				"actor_light"
+			],
+			[
+				"act",
+				"actor_light"
+			],
+			[
+				"post",
+				"postKeyPress"
+			],
+			[
+				"pilas",
+				"pilas"
+			],
+			[
+				"pint",
+				"pintar_linea_horizontal"
+			],
+			[
+				"tex",
+				"texto"
+			],
+			[
+				"Fondo",
+				"FondoEscenaJuego"
+			],
+			[
+				"compan",
+				"company_summarys"
+			],
+			[
+				"requ",
+				"requests"
+			],
+			[
+				"pos",
+				"pos_mouse"
+			],
+			[
+				"col",
+				"columna"
+			],
+			[
+				"IA",
+				"IA_en_todas_las_de_la_ley"
+			],
+			[
+				"ex",
+				"extraer_posiciones"
+			],
+			[
+				"verificar_ganador_",
+				"verificar_ganador_en_diagonal"
+			],
+			[
+				"ver",
+				"verificar_ganador_en_vertical"
+			],
+			[
+				"en",
+				"enumerate"
+			],
+			[
+				"cambi",
+				"cambiar_imagen"
+			],
+			[
+				"cambiar",
+				"cambiar_estado"
+			],
+			[
+				"Ju",
+				"JugadorBill"
+			],
+			[
+				"get",
+				"get_rect"
+			],
+			[
+				"Jug",
+				"JugadorSteve"
+			],
+			[
+				"datos",
+				"datos_actor"
+			],
+			[
+				"son",
+				"songs_quality"
+			],
+			[
+				"so",
+				"songs_quality"
+			],
+			[
+				"get_",
+				"get_text_of_classes"
+			],
+			[
+				"Lef",
+				"LeftButton"
+			],
+			[
+				"vetna",
+				"venatanaqframe"
+			],
+			[
+				"inii",
+				"iniciar"
+			],
+			[
+				"QT",
+				"QTextCursor"
+			],
+			[
+				"curo",
+				"cursor"
+			],
+			[
+				"remove",
+				"removeSelectedText"
+			],
+			[
+				"remoev",
+				"removeSelectedText"
+			],
+			[
+				"next",
+				"next_char"
+			],
+			[
+				"comportamieno",
+				"comportamientos"
+			],
+			[
+				"_",
+				"__class__"
+			],
+			[
+				"compo",
+				"comportamiento"
+			],
+			[
+				"kw",
+				"kwargs"
+			],
+			[
+				"ob",
+				"objecto_comportamiento"
+			],
+			[
+				"compro",
+				"comprobar_si_es_comportamiento"
+			],
+			[
+				"__",
+				"__init__"
+			],
+			[
+				"vel",
+				"velocidad_maxima"
+			],
+			[
+				"line",
+				"linetextwiget"
+			],
+			[
+				"autocomp",
+				"_autocompletar_argumentos_si_corresponde"
+			],
+			[
+				"texc",
+				"textCursor"
+			],
+			[
+				"posit",
+				"position"
+			],
+			[
+				"_acut",
+				"_automcompletar_comiilas_dobles"
+			],
+			[
+				"_cure",
+				"_get_current_word"
+			],
+			[
+				"_get",
+				"_get_entered_line"
+			],
+			[
+				"_set",
+				"_set_current_word"
+			],
+			[
+				"_ge",
+				"_get_current_word"
+			],
+			[
+				"push",
+				"pushButton_6"
+			],
+			[
+				"pila",
+				"pilasengine"
+			],
+			[
+				"cuando_mueve_camara_",
+				"cuando_mueve_camara_y"
+			],
+			[
+				"cuando",
+				"cuando_cambia_y"
+			],
+			[
+				"cuand",
+				"cuando_mueve_camara"
+			],
+			[
+				"cuan",
+				"cuando_cambia_x"
+			],
+			[
+				"lado",
+				"lado_seguimiento"
+			],
+			[
+				"anch",
+				"ancho_ventana"
+			],
+			[
+				"contado",
+				"contador_de_tiempo"
+			],
+			[
+				"esta",
+				"estaba"
+			],
+			[
+				"definir",
+				"definir_modos_de_depuracion"
+			],
+			[
+				"assert",
+				"assertTrue"
+			],
+			[
+				"Se",
+				"SeMantieneEnPantalla"
+			],
+			[
+				"EXPRE",
+				"EXPRESION_LISTAS"
+			],
+			[
+				"mou",
+				"mouse_y"
+			],
+			[
+				"mouse",
+				"mouse_x"
+			],
+			[
+				"codigo",
+				"codigo_de_tecla"
+			],
+			[
+				"test",
+				"testclass	testclass"
+			],
+			[
+				"ase",
+				"assertTrue"
+			],
+			[
+				"class",
+				"classname"
+			],
+			[
+				"clas",
+				"classname"
+			],
+			[
+				"if",
+				"ifmain	if __name__ == '__main__'"
+			],
+			[
+				"web",
+				"webbrowser"
+			],
+			[
+				"h",
+				"h1	Tag"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"contex",
+				"context	get_context_data"
+			],
+			[
+				"aut",
+				"autenticate"
+			],
+			[
+				"for",
+				"form"
+			],
+			[
+				"Pregunta",
+				"PreguntaForm"
+			],
+			[
+				"head",
+				"header	Tag"
+			],
+			[
+				"mus",
+				"music_file"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 285.0,
+		"selected_items":
+		[
+			[
+				"men",
+				"View: Toggle Menu"
+			],
+			[
+				"save as",
+				"Project: Save As"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"conso",
+				"Set Syntax: R Console"
+			],
+			[
+				"CONSOL",
+				"Set Syntax: R Console"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"MENU",
+				"View: Toggle Menu"
+			],
+			[
+				"stat",
+				"View: Toggle Status Bar"
+			],
+			[
+				"folde",
+				"Project: Add Folder"
+			],
+			[
+				"INST",
+				"Package Control: Install Package"
+			],
+			[
+				"pacacka",
+				"Package Control: Remove Package"
+			],
+			[
+				"status",
+				"View: Toggle Status Bar"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"mmen",
+				"Toggle Comment"
+			],
+			[
+				"me",
+				"View: Toggle Menu"
+			],
+			[
+				"add p",
+				"Package Control: Add Repository"
+			],
+			[
+				"add ",
+				"Project: Add Folder"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"REMOVE",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"repl",
+				"Set Syntax: Io Repl"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Remove Package"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"Package Control: isnta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": false,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/irving/Programming/Golang/golang_examples/hash.go",
+		"/home/irving/Programming/Golang/golang_examples/webscraper_goear.go",
+		"/home/irving/Programming/python/pilas/prueba_comportamiento.py",
+		"/home/irving/Programming/game-of-life/README.md",
+		"/home/irving/Programming/python/dataset.json",
+		"/home/irving/factura-original.php",
+		"/home/irving/conceptoNuevo.php",
+		"/home/irving/Programming/pilasengine/README.md",
+		"/home/irving/Programming/ruby/graphs.rb",
+		"/home/irving/Programming/snake/LICENSE",
+		"/home/irving/Programming/game-of-life/main.py",
+		"/home/irving/Programming/python/graphs/a.py",
+		"/home/irving/7.py",
+		"/home/irving/Programming/python/graphs/chart_demo.py",
+		"/home/irving/Programming/python/lepton/examples/fireworks.py",
+		"/home/irving/Programming/python/lepton/lepton/pygame_renderer.py",
+		"/home/irving/Programming/python/lepton/lepton/particle_struct.py",
+		"/home/irving/Programming/snake/main.py",
+		"/home/irving/Programming/python/lepton/lepton/texturizer.py",
+		"/home/irving/Programming/python/lepton/examples/fire.py",
+		"/home/irving/Programming/python/lepton/examples/bouncy.py",
+		"/home/irving/Programming/python/lepton/examples/smoke.py",
+		"/home/irving/Programming/python/lepton/examples/logo.py",
+		"/home/irving/Programming/python/lepton/examples/pygame_fill.py",
+		"/home/irving/Programming/python/lepton/examples/flyby.py",
+		"/home/irving/Programming/python/lepton/examples/pygame_bubble.py",
+		"/home/irving/Programming/python/lepton/examples/games/bonk/game.py",
+		"/home/irving/Programming/python/Mario-Level-1/requirements.txt",
+		"/home/irving/.cache/.fr-z0gkpl/PySDL2-0.9.2/setup.py",
+		"/home/irving/Programming/WITS/main.py",
+		"/home/irving/.cache/.fr-ON00T1/PySDL2-0.9.2/examples/colorpalettes.py",
+		"/home/irving/.cache/.fr-WWv834/PySDL2-0.9.2/README.txt",
+		"/home/irving/badmagician.py",
+		"/home/irving/reverse.py",
+		"/home/irving/man.py",
+		"/home/irving/life.py",
+		"/home/irving/Programming/tres-en-raya/main.py",
+		"/home/irving/deslizador_prueba.py",
+		"/home/irving/.cache/.fr-2mxhAt/sol.py",
+		"/home/irving/Programming/pilas/pilas/widget_log.py",
+		"/home/irving/Programming/pilas/pilas/utils.py",
+		"/home/irving/Programming/ninja-ide/ninja_ide/resources.py",
+		"/home/irving/.cache/.fr-yBvDvA/B.go",
+		"/home/irving/B-large-practice.in",
+		"/home/irving/.cache/.fr-sJRYAr/B.py",
+		"/home/irving/.cache/.fr-YApGVO/B.py",
+		"/home/irving/B-small-practice.in",
+		"/home/irving/.cache/.fr-SfvEQL/2014_QR_A.py",
+		"/home/irving/Programming/pilasengine/Makefile",
+		"/home/irving/Downloads/CzechMassage.14.05.10.Massage.73.XXX.720p.WMV-KTR[rarbg]/czm.14.05.10.massage.73.nfo",
+		"/home/irving/Programming/pilasengine/pilasengine/interprete/__init__.py",
+		"/home/irving/Programming/pilas/juego.py",
+		"/home/irving/Programming/pilas/pilas/__init__.py",
+		"/home/irving/Programming/pilasengine/setup-mac.py",
+		"/home/irving/Programming/pilasengine/setup.py",
+		"/usr/local/lib/python2.7/dist-packages/easy-install.pth",
+		"/home/irving/Programming/pilas/pilas/motores/motor_qt.py",
+		"/home/irving/Programming/pilas/utils/paquete-ubuntu/resultado/box2d_clone.log",
+		"/home/irving/Programming/pilas/utils/paquete-ubuntu/DEBIAN/control",
+		"/home/irving/Programming/pilas/utils/paquete-ubuntu/DEBIAN/conffiles",
+		"/home/irving/Programming/pilas/utils/paquete-ubuntu/DEBIAN/changelog",
+		"/home/irving/Programming/pilas/utils/paquete-ubuntu/generar_paquete.sh",
+		"/home/irving/Programming/pilas/utils/actualizar_pypi.py",
+		"/home/irving/Programming/pilas/setup.py",
+		"/home/irving/Programming/MonkeyBanana/Main.py",
+		"/home/irving/jython2.5.3/Demo/swing/JythonConsole/Console.py",
+		"/home/irving/a.py",
+		"/home/irving/.cache/.fr-lximMF/goeg/README.txt",
+		"/home/irving/Downloads/Codeschool - Shaping up with Angular js/Torrent downloaded from AhaShare.com.txt",
+		"/home/irving/Programming/pilas/pilas/habilidades.py",
+		"/home/irving/jython2.5.3/Demo/applet/deprecated/ButtonDemo.py",
+		"/home/irving/programa.py",
+		"/home/irving/Programming/pilasengine/programa.py",
+		"/home/irving/Programming/pilas/INSTALL",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/muchos_actores.py",
+		"/home/irving/miprograma.py",
+		"/home/irving/hola",
+		"/home/irving/Programming/pilas/mendeleiev_bros.py",
+		"/home/irving/Programming/pilasengine/files.txt",
+		"/home/irving/Programming/pilasengine/asdad.py",
+		"/home/irving/Programming/pilasengine/asdaasdada",
+		"/home/irving/11/MendeleievBros/mendeleiev_bros.py",
+		"/home/irving/11/MendeleievBros/mendeleiev_bros/ejecutar.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/tres_en_raya.py",
+		"/home/irving/Programming/pilas/pilas/interfaz/deslizador.py",
+		"/home/irving/Programming/pilas/pilas/interfaz/base_interfaz.py",
+		"/home/irving/Programming/pilas/deslizador.py",
+		"/home/irving/Programming/pilas/otro.py",
+		"/home/irving/Programming/pilas/lista_seleccion.py",
+		"/home/irving/Programming/pilas/selector.py",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/interfaz/ancho_de_texto.py",
+		"/home/irving/Programming/Golang/werbserver/main.go",
+		"/home/irving/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/irving/slides-1.0.1.orig/examples/intro/make-presentation",
+		"/home/irving/slides-1.0.1.orig/setup.py",
+		"/home/irving/slides-1.0.1.orig/slides.py",
+		"/home/irving/slides-1.0.1.orig/examples/intro/README",
+		"/home/irving/Programming/python/pilas/fondos.py",
+		"/home/irving/Programming/pilas/pilas/fondos.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/tres_en_raya/escena_menu.py",
+		"/home/irving/Tibia/StartTibia.sh",
+		"/home/irving/Programming/pilas/pilas/mundo.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/tres_en_raya/ejecutar.py",
+		"/home/irving/crear",
+		"/home/irving/Programming/python/pilas/gradientes.py",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/minijuegos/memorice/escena_menu.py",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/interfaz/boton_con_texto.py",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/minijuegos/memorice/escena_juego.py",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/minijuegos/memorice.py",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/minijuegos/memorice/README",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/tres_en_raya/escena_juego.py",
+		"/home/irving/lightsout07/grid.py",
+		"/home/irving/lightsout07/lights out.py",
+		"/home/irving/lightsout07/menu.py",
+		"/home/irving/leffects.py",
+		"/home/irving/Programming/ninja-ide/ninja_ide/gui/editor/editor.py",
+		"/home/irving/Programming/pilasengine/pilasengine/asistente/__init__.py",
+		"/home/irving/Programming/pilasengine/data/asistente/ejemplos.html",
+		"/home/irving/Programming/pilas/pilas/ejemplos/ejemplos/minijuegos/tres_en_raya.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/minijuegos/tres_en_raya/ejecutar.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/minijuegos/tres_en_raya.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/actor_con_controles.py",
+		"/home/irving/Programming/pilasengine/pilasengine/asistente/asistente_base.py",
+		"/home/irving/Programming/pilasengine/ejemplos/interfaz_base.py",
+		"/home/irving/Programming/pilasengine/ejemplos/interfaz.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/minijuegos/tres_en_raya/escena_ayuda.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/minijuegos/tres_en_raya/escena_juego.py",
+		"/home/irving/Programming/pilasengine/pilasengine/ejemplos/minijuegos/tres_en_raya/escena_menu.py"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"python-pilas-experimental",
+			"pilasengine",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"tick",
+			"colourGrid",
+			"rect",
+			"FPS",
+			"pg",
+			"state",
+			"neighboors",
+			"state",
+			"witdth",
+			"neighboors",
+			"Quarter",
+			"quarters",
+			",",
+			"button",
+			"line",
+			"_obtener_diccionario",
+			"log(",
+			".",
+			"-",
+			"print",
+			"qtgui.",
+			"gst",
+			"audio",
+			"cambiar_turno",
+			"ejecutar_funciones",
+			"return",
+			"pilas",
+			"terminar",
+			"preKeyPress",
+			"ignore",
+			"Key_QuoteDbl",
+			"__quot_completion",
+			"__complete_braces",
+			"__quot_completion",
+			"__complete_quotes",
+			"event",
+			"preKeyPress",
+			"Key_QuoteDbl",
+			"Key_Apostrophe",
+			"qtcore.key",
+			"QKey",
+			"(\")",
+			"abrir_script_con_livereload",
+			"abrir_ejemplo",
+			"_ejecutar_comando",
+			"ejecutar",
+			"#",
+			"casilla.desactivar()\n        imagen = './data/{}.png'.format(self.turno)\n        casilla.pintar_presionado(imagen)\n        casilla.escala = .8\n        casilla.escala = [1]\n        self.quitar_un_turno()\n        self.poner_ficha_en_tablero(casilla.pos_en_tablero)\n        self.verificar_ganador()\n        self.verificar_empate()\n        self.cambiar_turno()",
+			"self.casillas",
+			"crear_tablero",
+			"\"3\",",
+			"keys",
+			"\"3\",",
+			"\"3\"",
+			"3",
+			"levelgoal",
+			"self.fonts =",
+			" table_body =",
+			"var table_body =",
+			"table_body =",
+			"acgl",
+			"formatter_symbol",
+			"http://www.nasdaq.com/symbol/",
+			"http://www.nasdaq.com/symbol/acgl",
+			"gano",
+			"self",
+			"limpiar_casillas",
+			"self",
+			"limpiar_casillas",
+			"pygame",
+			"turnos",
+			"nadie_gano",
+			"temp_nadie_gana",
+			"nadie_gano",
+			"[\"steve\", \"steve\", \"steve\"]",
+			"[\"bill\", \"bill\", \"bill\"]",
+			"MOUSEBUTTONDOWN",
+			"pygame.display.up",
+			"pygame.display.",
+			"jugador1",
+			"ordenar_actores_por_valor_z",
+			"por ",
+			"#",
+			"big",
+			"livereload",
+			"set_z",
+			"set_x",
+			"self.z",
+			"z",
+			"posicion",
+			"text_under",
+			"complet",
+			"ps1",
+			"dibujar_wi",
+			"constante",
+			"match",
+			"matche",
+			"matches",
+			"_match_braces",
+			"QTextBlock",
+			"qtextcur",
+			"qtgui",
+			"setpo",
+			"event.modifier",
+			"constant",
+			"constantede",
+			"constante",
+			"self.editor",
+			"self.ventana_interprete",
+			"self.main",
+			"_insertar_Ed",
+			"editor",
+			"splitter_editor",
+			"cuando_pulsa_el_boton_editor",
+			"lastbloc",
+			"cursor_position",
+			"def get_",
+			"get_",
+			"get_line",
+			"self.document()",
+			"self.document().",
+			"setposition",
+			"lineundercur",
+			"get_current_li",
+			"get_selec",
+			"moveposition",
+			"get_select",
+			"get_selec"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "prueba.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"curso/preguntasyrespuestas/models.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 182.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}
