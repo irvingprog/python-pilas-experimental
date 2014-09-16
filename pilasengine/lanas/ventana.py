@@ -20,9 +20,9 @@ from PyQt4.QtGui import QDesktopWidget
 import interprete_textedit
 
 
-class Ventana(QWidget):
-    def __init__(self, parent=None, scope=None, codigo_inicial=""):
-        super(Ventana, self).__init__(parent)
+class QWidgetLanas(QWidget):
+    def __init__(self, parent=None, scope=None):
+        super(QWidgetLanas, self).__init__(parent)
         box = QVBoxLayout()
         box.setMargin(0)
         box.setSpacing(0)
@@ -35,7 +35,7 @@ class Ventana(QWidget):
         if not 'inspect' in scope:
             scope['inspect'] = inspect
 
-        self.text_edit = interprete_textedit.InterpreteTextEdit(self, codigo_inicial)
+        self.text_edit = interprete_textedit.InterpreteTextEdit(self)
         self.text_edit.init(scope)
 
         self.tip_widget = QLabel(self)

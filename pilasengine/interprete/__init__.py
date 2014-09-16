@@ -149,7 +149,7 @@ class VentanaInterprete(Ui_InterpreteWindow):
         self.definir_icono(self.guardar_button, 'iconos/guardar.png')
         self.interprete_button.connect(self.guardar_button,
                                        QtCore.SIGNAL("clicked()"),
-                                       self.cuando_pulsa_el_boton_guardar)
+                                       self.cuando_pulsa_el_boton_guardar_interprete)
 
         # Botón configuración
         self.definir_icono(self.configuracion_button, 'iconos/preferencias.png')
@@ -360,16 +360,15 @@ class VentanaInterprete(Ui_InterpreteWindow):
         self.editor = componente.editor
 
     def _insertar_consola_interactiva(self):
-        codigo_inicial = ['import pilasengine',
-                          '',
-                          'pilas = pilasengine.iniciar()',
-                          'mono = pilas.actores.Mono()']
+        codigo_inicial = u'''import pilasengine'
+                            pilas = pilasengine.iniciar()
+                            mono = pilas.actores.Mono()'''
 
-        consola = lanas.ventana.Ventana(self.splitter, self.scope,
-                                        "\n".join(codigo_inicial))
-        self.console.addWidget(consola)
-        self.console.setCurrentWidget(consola)
-        self.consola = consola
+        qwidget_lanas = lanas.ventana.QWidgetLanas(self.splitter, self.scope)
+        #qwidget_lanas.text_edit.insertar_codigo(codigo_inicial)
+        self.console.addWidget(qwidget_lanas)
+        self.console.setCurrentWidget(qwidget_lanas)
+        self.consola = qwidget_lanas
         self.consola.text_edit.setFocus()
 
     def definir_fuente_desde_configuracion(self):
@@ -382,6 +381,9 @@ class VentanaInterprete(Ui_InterpreteWindow):
 
     def cuando_pulsa_el_boton_guardar(self):
         self.editor.guardar_con_dialogo()
+
+    def cuando_pulsa_el_boton_guardar_interprete(self):
+        self.consola.text_edit.guardar_contenido_con_dialogo()
 
     def cuando_pulsa_el_boton_configuracion(self):
         pilasengine.abrir_configuracion()

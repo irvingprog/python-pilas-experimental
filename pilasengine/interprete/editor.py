@@ -7,19 +7,12 @@
 # Website - http://www.pilas-engine.com.ar
 import codecs
 
-from PyQt4.Qt import QFrame
-from PyQt4.Qt import QWidget
-from PyQt4.Qt import QHBoxLayout
-from PyQt4.Qt import QPainter
+from PyQt4.Qt import (QFrame, QWidget, QHBoxLayout, QPainter)
+from PyQt4.QtGui import (QTextEdit, QTextCursor, QFileDialog)
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QFileDialog
-from PyQt4.QtGui import QFont
-from PyQt4.QtGui import QTextEdit
-from PyQt4.QtGui import QTextCursor
 
-from pilasengine.lanas import autocomplete
-from pilasengine.lanas import editor_con_deslizador
-from pilasengine.lanas import highlighter
+import editor_base
+
 
 CONTENIDO = u"""import pilasengine
 
@@ -92,7 +85,9 @@ class Editor(QFrame):
 
                 # Draw the line number right justified at the y position of the
                 # line. 3 is a magic padding number. drawText(x, y, text).
-                painter.drawText(-5 + self.width() - font_metrics.width(str(line_count)) - 3, round(position.y()) - contents_y + font_metrics.ascent(), str(line_count))
+                painter.drawText(-5 + self.width() - font_metrics.width(str(line_count)) - 3,
+                                round(position.y()) - contents_y + font_metrics.ascent(),
+                                str(line_count))
 
                 block = block.next()
 
@@ -130,59 +125,27 @@ class Editor(QFrame):
         return QFrame.eventFilter(obj, event)
 
 
-class WidgetEditor(autocomplete.CompletionTextEdit,
-                   editor_con_deslizador.EditorConDeslizador):
+class WidgetEditor(editor_base.EditorBase):
     """Representa el editor de texto que aparece en el panel derecho.
 
     El editor soporta autocompletado de código y resaltado de sintáxis.
     """
 
     def __init__(self, main, interpreterLocals, ventana_interprete):
-        autocomplete.CompletionTextEdit.__init__(self, None,
-                                                 self.funcion_valores_autocompletado)
+        super(WidgetEditor, self).__init__()
         self.interpreterLocals = interpreterLocals
         self.insertPlainText(CONTENIDO)
         self.setLineWrapMode(QTextEdit.NoWrap)
         self._cambios_sin_guardar = False
         self.main = main
         self.ventana_interprete = ventana_interprete
-        self._cargar_resaltador_de_sintaxis()
-        self.nombre_de_archivo_sugerido = "juego.py"
-
-    def insertFromMimeData(self, source):
-        QTextEdit.insertPlainText(self, source.text())
 
     def keyPressEvent(self, event):
         "Atiene el evento de pulsación de tecla."
         self._cambios_sin_guardar = True
 
-        # Completar comillas y braces
-        if event.key() == Qt.Key_QuoteDbl:
-            self._autocompletar_comillas('"')
-
-        if event.key() == Qt.Key_Apostrophe:
-            self._autocompletar_comillas("'")
-
-        if event.key() == Qt.Key_ParenLeft:
-            self._autocompletar_braces('(')
-
-        if event.key() == Qt.Key_BraceLeft:
-            self._autocompletar_braces('{')
-
-        if event.key() == Qt.Key_BracketLeft:
-            self._autocompletar_braces('[')
-
-
-        # cambia el tamano de la tipografia.
-        if event.modifiers() & Qt.AltModifier:
-            if event.key() == Qt.Key_Minus:
-                self._change_font_size(-2)
-                event.ignore()
-                return
-            elif event.key() == Qt.Key_Plus:
-                self._change_font_size(+2)
-                event.ignore()
-                return
+        if editor_base.EditorBase.keyPressEvent(self, event):
+            return None
 
         # Elimina los pares de caracteres especiales si los encuentra
         if event.key() == Qt.Key_Backspace:
@@ -205,44 +168,6 @@ class WidgetEditor(autocomplete.CompletionTextEdit,
         self.font_family = fuente.rawName()
         self.font_size = fuente.pointSize()
 
-    def actualizar_scope(self, scope):
-        self.interpreterLocals = scope
-
-    def _change_font_size(self, delta_size):
-        self._set_font_size(self.font_size + delta_size)
-
-    def _set_font_size(self, font_size):
-        self.font_size = font_size
-        font = QFont(self.font_family, font_size)
-        self.setFont(font)
-
-    def funcion_valores_autocompletado(self, texto):
-        "Retorna una lista de valores propuestos para autocompletar"
-        scope = self.interpreterLocals
-        texto = texto.replace('(', ' ').split(' ')[-1]
-
-        if '.' in texto:
-            palabras = texto.split('.')
-            ultima = palabras.pop()
-            prefijo = '.'.join(palabras)
-
-            try:
-                items = eval("[(x, callable(getattr(eval('%s'), x))) for x in dir(%s)]" %(prefijo, prefijo), scope)
-                elementos = []
-
-                for (x, invocable) in items:
-                    if invocable:
-                        elementos.append(x + '(')
-                    else:
-                        elementos.append(x)
-            except:
-                # TODO: notificar este error de autocompletado en algun lado...
-                return []
-
-            return [a for a in elementos if a.startswith(ultima)]
-        else:
-            return [a for a in scope.keys() if a.startswith(texto)]
-
     def _get_current_line(self):
         "Obtiene la linea en donde se encuentra el cursor."
         tc = self.textCursor()
@@ -255,13 +180,6 @@ class WidgetEditor(autocomplete.CompletionTextEdit,
         contenido = archivo.read()
         archivo.close()
         self.setText(contenido)
-        self.nombre_de_archivo_sugerido = ruta
-
-    def guardar_contenido_en_el_archivo(self, ruta):
-        texto = unicode(self.document().toPlainText())
-        archivo = codecs.open(unicode(ruta), 'w', 'utf-8')
-        archivo.write(texto)
-        archivo.close()
         self.nombre_de_archivo_sugerido = ruta
 
     def paint_event_falso(self, event):
@@ -294,20 +212,16 @@ class WidgetEditor(autocomplete.CompletionTextEdit,
         texto = unicode(self.document().toPlainText())
         self.ventana_interprete.ejecutar_codigo_como_string(texto)
 
-    def guardar_con_dialogo(self):
-        ruta = QFileDialog.getSaveFileName(self, "Guardar Archivo",
-                                           self.nombre_de_archivo_sugerido,
-                                           "Archivos python (*.py)",
-                                           options=QFileDialog.DontUseNativeDialog)
+    def guardar_contenido_con_dialogo(self):
+        ruta = self.abrir_dialogo_guardar()
 
         if ruta:
             self.guardar_contenido_en_el_archivo(ruta)
             self._cambios_sin_guardar = False
 
-        self.ejecutar()
+    def obtener_contenido(self):
+        return unicode(self.document().toPlainText())
 
-    def _cargar_resaltador_de_sintaxis(self):
-        self._highlighter = highlighter.Highlighter(
-            self.document(),
-            'python',
-            highlighter.COLOR_SCHEME)
+
+
+
