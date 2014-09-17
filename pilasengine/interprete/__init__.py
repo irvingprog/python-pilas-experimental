@@ -77,7 +77,7 @@ class VentanaInterprete(Ui_InterpreteWindow):
         self.navegador.history().setMaximumItemCount(0)
 
         self._conectar_botones()
-        self._conectar_botones_del_editor()
+        #self._conectar_botones_del_editor()
         self._conectar_observadores_splitters()
 
     def consultar_si_quiere_perder_cambios(self):
@@ -128,22 +128,22 @@ class VentanaInterprete(Ui_InterpreteWindow):
                                        self.cuando_pulsa_el_boton_interprete)
 
         # Botón guardar del editor
-        self.definir_icono(self.boton_guardar, 'iconos/guardar.png')
-        self.boton_guardar.connect(self.boton_guardar,
-                                   QtCore.SIGNAL("clicked()"),
-                                   self.cuando_pulsa_el_boton_guardar)
+        #self.definir_icono(self.boton_guardar, 'iconos/guardar.png')
+        #self.boton_guardar.connect(self.boton_guardar,
+                                   #QtCore.SIGNAL("clicked()"),
+                                   #self.cuando_pulsa_el_boton_guardar)
 
 
 
-        self.definir_icono(self.boton_ejecutar, 'iconos/ejecutar.png')
-        self.definir_icono(self.boton_pausar, 'iconos/pausa.png')
-        self.definir_icono(self.boton_siguiente, 'iconos/siguiente.png')
+        #self.definir_icono(self.boton_ejecutar, 'iconos/ejecutar.png')
+        #self.definir_icono(self.boton_pausar, 'iconos/pausa.png')
+        #self.definir_icono(self.boton_siguiente, 'iconos/siguiente.png')
 
 
-        self.definir_icono(self.boton_abrir, 'iconos/abrir.png')
-        self.boton_abrir.connect(self.boton_abrir,
-                                 QtCore.SIGNAL("clicked()"),
-                                 self.cuando_pulsa_el_boton_abrir)
+        #self.definir_icono(self.boton_abrir, 'iconos/abrir.png')
+        #self.boton_abrir.connect(self.boton_abrir,
+                                 #QtCore.SIGNAL("clicked()"),
+                                 #self.cuando_pulsa_el_boton_abrir)
 
         # Botón guardar del interprete
         self.definir_icono(self.guardar_button, 'iconos/guardar.png')
@@ -354,7 +354,7 @@ class VentanaInterprete(Ui_InterpreteWindow):
         self.canvas.setCurrentWidget(self.ventana_pilas)
 
     def _insertar_editor(self):
-        componente = editor.Editor(self.main, self.scope, self)
+        componente = editor.WidgetEditor(self.main, self.scope, self)
         self.editor_placeholder.addWidget(componente)
         self.editor_placeholder.setCurrentWidget(componente)
         self.editor = componente.editor
@@ -380,7 +380,7 @@ class VentanaInterprete(Ui_InterpreteWindow):
         self.editor.abrir_con_dialogo()
 
     def cuando_pulsa_el_boton_guardar(self):
-        self.editor.guardar_con_dialogo()
+        self.editor.guardar_contenido_con_dialogo()
 
     def cuando_pulsa_el_boton_guardar_interprete(self):
         self.consola.text_edit.guardar_contenido_con_dialogo()

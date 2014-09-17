@@ -27,19 +27,16 @@ class EditorBase(autocomplete.CompletionTextEdit,
         # cambia el tamano de la tipografia.
         if event.modifiers() & Qt.AltModifier:
             if event.key() == Qt.Key_Minus:
-                self.zoomOut(1)
-                event.ignore()
+                self.cambiar_tamano_fuente(-1)
                 return True
             elif event.key() == Qt.Key_Plus:
-                self.zoomIn(1)
-                event.ignore()
+                self.cambiar_tamano_fuente(1)
                 return True
 
     def wheelEvent(self, event):
         if event.modifiers() & Qt.ControlModifier:
             self.cambiar_tamano_fuente(event.delta())
-            self.ensureCursorVisible()
-            return None
+            return True
 
         return QTextEdit.wheelEvent(self, event)
 
@@ -58,11 +55,13 @@ class EditorBase(autocomplete.CompletionTextEdit,
         elif delta > 0:
             self.zoomIn(1)
 
+        self.ensureCursorVisible()
+
     def abrir_dialogo_guardar(self):
-        QFileDialog.getSaveFileName(self, "Guardar Archivo",
-                                    self.nombre_de_archivo_sugerido,
-                                    "Archivos python (*.py)",
-                                    options=QFileDialog.DontUseNativeDialog)
+        return QFileDialog.getSaveFileName(self, "Guardar Archivo",
+                                           self.nombre_de_archivo_sugerido,
+                                           "Archivos python (*.py)",
+                                           options=QFileDialog.DontUseNativeDialog)
 
     def guardar_contenido_con_dialogo(self):
         raise NotImplementedError('Es necesario sobreescribir el metodo \
@@ -77,8 +76,6 @@ class EditorBase(autocomplete.CompletionTextEdit,
         texto = self.obtener_contenido()
         with codecs.open(unicode(ruta), 'w', 'utf-8') as archivo:
             archivo.write(texto)
-
-        self.nombre_de_archivo_sugerido = ruta
 
     def _cargar_resaltador_de_sintaxis(self):
         self._highlighter = highlighter.Highlighter(

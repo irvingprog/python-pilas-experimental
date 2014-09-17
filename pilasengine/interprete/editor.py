@@ -7,12 +7,15 @@
 # Website - http://www.pilas-engine.com.ar
 import codecs
 
-from PyQt4.Qt import (QFrame, QWidget, QHBoxLayout, QPainter)
-from PyQt4.QtGui import (QTextEdit, QTextCursor, QFileDialog)
+from PyQt4.Qt import (QFrame, QWidget, QHBoxLayout,
+                        QVBoxLayout, QPainter, QSize)
+from PyQt4.QtGui import (QTextEdit, QTextCursor, QFileDialog,
+                         QIcon, QPushButton, QCursor)
 from PyQt4.QtCore import Qt
+from PyQt4 import QtCore
 
 import editor_base
-
+import pilasengine
 
 CONTENIDO = u"""import pilasengine
 
@@ -33,7 +36,7 @@ mono.rotacion = 0
 pilas.ejecutar()"""
 
 
-class Editor(QFrame):
+class WidgetEditor(QWidget):
 
     class NumberBar(QWidget):
 
@@ -98,22 +101,44 @@ class Editor(QFrame):
 
 
     def __init__(self, main, interpreterLocals, ventana_interprete, *args):
-        QFrame.__init__(self, *args)
+        QWidget.__init__(self, *args)
 
-        self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
-
-        self.editor = WidgetEditor(self, interpreterLocals, ventana_interprete)
+        self.editor = Editor(self, interpreterLocals, ventana_interprete)
         self.editor.setFrameStyle(QFrame.NoFrame)
         self.editor.setAcceptRichText(False)
 
         self.number_bar = self.NumberBar()
         self.number_bar.setTextEdit(self.editor)
 
-        hbox = QHBoxLayout(self)
+        vbox = QVBoxLayout(self)
+        vbox.setSpacing(0)
+        vbox.setMargin(0)
+
+        hbox_buttons = QHBoxLayout()
+        hbox_buttons.setSpacing(0)
+        hbox_buttons.setMargin(0)
+
+        self.boton_guardar = QPushButton(self)
+        self.boton_guardar.setMaximumSize(QSize(20, 20))
+        self.boton_guardar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.boton_guardar.setFlat(True)
+        #self.guardar_button.setObjectName(_fromUtf8("guardar_button"))
+        # Botón guardar del editor
+        self.definir_icono(self.boton_guardar, 'iconos/guardar.png')
+        self.boton_guardar.connect(self.boton_guardar,
+                                   QtCore.SIGNAL("clicked()"),
+                                   self.editor.guardar_contenido_con_dialogo)
+
+        hbox_buttons.addWidget(self.boton_guardar)
+        vbox.addLayout(hbox_buttons)
+
+        hbox = QHBoxLayout()
         hbox.setSpacing(0)
         hbox.setMargin(0)
         hbox.addWidget(self.number_bar)
         hbox.addWidget(self.editor)
+
+        vbox.addLayout(hbox)
 
         self.editor.installEventFilter(self)
         self.editor.viewport().installEventFilter(self)
@@ -124,15 +149,22 @@ class Editor(QFrame):
             return False
         return QFrame.eventFilter(obj, event)
 
+    def definir_icono(self, boton, ruta):
+        icon = QIcon()
+        archivo = pilasengine.utils.obtener_ruta_al_recurso(ruta)
+        icon.addFile(archivo, QSize(), QIcon.Normal, QIcon.Off)
+        boton.setIcon(icon)
+        boton.setText('')
 
-class WidgetEditor(editor_base.EditorBase):
+
+class Editor(editor_base.EditorBase):
     """Representa el editor de texto que aparece en el panel derecho.
 
     El editor soporta autocompletado de código y resaltado de sintáxis.
     """
 
     def __init__(self, main, interpreterLocals, ventana_interprete):
-        super(WidgetEditor, self).__init__()
+        super(Editor, self).__init__()
         self.interpreterLocals = interpreterLocals
         self.insertPlainText(CONTENIDO)
         self.setLineWrapMode(QTextEdit.NoWrap)
@@ -218,6 +250,7 @@ class WidgetEditor(editor_base.EditorBase):
         if ruta:
             self.guardar_contenido_en_el_archivo(ruta)
             self._cambios_sin_guardar = False
+            self.nombre_de_archivo_sugerido = ruta
 
     def obtener_contenido(self):
         return unicode(self.document().toPlainText())
