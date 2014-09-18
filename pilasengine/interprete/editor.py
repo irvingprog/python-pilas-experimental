@@ -6,11 +6,12 @@
 #
 # Website - http://www.pilas-engine.com.ar
 import codecs
+import time
 
 from PyQt4.Qt import (QFrame, QWidget, QHBoxLayout,
                         QVBoxLayout, QPainter, QSize)
 from PyQt4.QtGui import (QTextEdit, QTextCursor, QFileDialog,
-                         QIcon, QPushButton, QCursor)
+                         QIcon, QPushButton, QCursor, QMessageBox)
 from PyQt4.QtCore import Qt
 from PyQt4 import QtCore
 
@@ -110,6 +111,7 @@ class WidgetEditor(QWidget):
         self.number_bar = self.NumberBar()
         self.number_bar.setTextEdit(self.editor)
 
+        # Layout principal: envuelve al editor y layout de acciones
         vbox = QVBoxLayout(self)
         vbox.setSpacing(0)
         vbox.setMargin(0)
@@ -117,28 +119,40 @@ class WidgetEditor(QWidget):
         hbox_buttons = QHBoxLayout()
         hbox_buttons.setSpacing(0)
         hbox_buttons.setMargin(0)
-
-        self.boton_guardar = QPushButton(self)
-        self.boton_guardar.setMaximumSize(QSize(20, 20))
-        self.boton_guardar.setCursor(QCursor(Qt.PointingHandCursor))
-        self.boton_guardar.setFlat(True)
-        #self.guardar_button.setObjectName(_fromUtf8("guardar_button"))
-        # Botón guardar del editor
-        self.definir_icono(self.boton_guardar, 'iconos/guardar.png')
-        self.boton_guardar.connect(self.boton_guardar,
-                                   QtCore.SIGNAL("clicked()"),
-                                   self.editor.guardar_contenido_con_dialogo)
-
-        hbox_buttons.addWidget(self.boton_guardar)
         vbox.addLayout(hbox_buttons)
 
-        hbox = QHBoxLayout()
-        hbox.setSpacing(0)
-        hbox.setMargin(0)
-        hbox.addWidget(self.number_bar)
-        hbox.addWidget(self.editor)
+        # Botón abrir del editor
+        self.button_open = QPushButton(self)
+        self.button_open.setMaximumSize(QSize(20, 20))
+        self.button_open.setCursor(QCursor(Qt.PointingHandCursor))
+        self.button_open.setFlat(True)
+        #self.guardar_button.setObjectName(_fromUtf8("guardar_button"))
+        self.set_icon(self.button_open, 'iconos/abrir.png')
+        self.button_open.connect(self.button_open,
+                                   QtCore.SIGNAL("clicked()"),
+                                   self.editor.abrir_archivo_con_dialogo)
+        hbox_buttons.addWidget(self.button_open)
 
-        vbox.addLayout(hbox)
+        # Botón guardar del editor
+        self.button_save = QPushButton(self)
+        self.button_save.setMaximumSize(QSize(20, 20))
+        self.button_save.setCursor(QCursor(Qt.PointingHandCursor))
+        self.button_save.setFlat(True)
+        #self.guardar_button.setObjectName(_fromUtf8("guardar_button"))
+        self.set_icon(self.button_save, 'iconos/guardar.png')
+        self.button_save.connect(self.button_save,
+                                   QtCore.SIGNAL("clicked()"),
+                                   self.editor.guardar_contenido_con_dialogo)
+        hbox_buttons.addWidget(self.button_save)
+
+
+        # Layout para el Editor y barra de numeros
+        hbox_editor = QHBoxLayout()
+        hbox_editor.setSpacing(0)
+        hbox_editor.setMargin(0)
+        hbox_editor.addWidget(self.number_bar)
+        hbox_editor.addWidget(self.editor)
+        vbox.addLayout(hbox_editor)
 
         self.editor.installEventFilter(self)
         self.editor.viewport().installEventFilter(self)
@@ -149,7 +163,7 @@ class WidgetEditor(QWidget):
             return False
         return QFrame.eventFilter(obj, event)
 
-    def definir_icono(self, boton, ruta):
+    def set_icon(self, boton, ruta):
         icon = QIcon()
         archivo = pilasengine.utils.obtener_ruta_al_recurso(ruta)
         icon.addFile(archivo, QSize(), QIcon.Normal, QIcon.Off)
@@ -195,27 +209,22 @@ class Editor(editor_base.EditorBase):
     def tiene_cambios_sin_guardar(self):
         return self._cambios_sin_guardar
 
-    def definir_fuente(self, fuente):
-        self.setFont(fuente)
-        self.font_family = fuente.rawName()
-        self.font_size = fuente.pointSize()
-
     def _get_current_line(self):
         "Obtiene la linea en donde se encuentra el cursor."
         tc = self.textCursor()
         tc.select(QTextCursor.LineUnderCursor)
         return tc.selectedText()
 
-    def cargar_desde_archivo(self, ruta):
-        "Carga todo el contenido del archivo indicado por ruta."
-        archivo = codecs.open(unicode(ruta), 'r', 'utf-8')
-        contenido = archivo.read()
-        archivo.close()
-        self.setText(contenido)
-        self.nombre_de_archivo_sugerido = ruta
+    def _get_position_in_block(self):
+        tc = self.textCursor()
+        position = tc.positionInBlock() - 1
+        return position
 
-    def paint_event_falso(self, event):
-        pass
+    def cargar_contenido_desde_archivo(self, ruta):
+        "Carga todo el contenido del archivo indicado por ruta."
+        with codecs.open(unicode(ruta), 'r', 'utf-8') as archivo:
+            contenido = archivo.read()
+        self.setText(contenido)
 
     def _restaurar_rutina_de_redibujado_original(self, paint_event_original):
         pilas = self.interpreterLocals['pilas']
@@ -223,34 +232,52 @@ class Editor(editor_base.EditorBase):
         widget = pilas.obtener_widget()
         widget.__class__.paintEvent = paint_event_original
 
-    def abrir_con_dialogo(self):
-        if self.tiene_cambios_sin_guardar():
-            if not self.ventana_interprete.consultar_si_quiere_perder_cambios():
-                return
+    def abrir_dialogo_cargar_archivo(self):
+        return QFileDialog.getOpenFileName(self, "Abrir Archivo",
+                                   self.nombre_de_archivo_sugerido,
+                                   "Archivos python (*.py)",
+                                   options=QFileDialog.DontUseNativeDialog)
 
-        ruta = QFileDialog.getOpenFileName(self, "Abrir Archivo",
-                                           self.nombre_de_archivo_sugerido,
-                                           "Archivos python (*.py)",
-                                           options=QFileDialog.DontUseNativeDialog)
+    def abrir_archivo_con_dialogo(self):
+        self.quiere_perder_cambios()
+
+        ruta = self.abrir_dialogo_cargar_archivo()
 
         if ruta:
-            self.cargar_desde_archivo(ruta)
+            self.cargar_contenido_desde_archivo(ruta)
+            self.nombre_de_archivo_sugerido = ruta
             self._cambios_sin_guardar = False
-
-        if ruta:
             self.ejecutar()
+
+    def quiere_perder_cambios(self):
+        if self.tiene_cambios_sin_guardar():
+            if not self.mensaje_quiere_perder_cambios():
+                self.guardar_contenido_con_dialogo()
+
+    def mensaje_quiere_perder_cambios(self):
+        """Realizar una consulta usando un cuadro de dialogo simple.
+        Este método retorna True si el usuario acepta la pregunta."""
+
+        titulo = u"Se perderán los cambios sin guardar"
+        mensaje = u"Se perderán los cambios sin guardar... ¿Quieres perder los cambios del editor realmente?"
+
+        # False si respuesta es "Si", True si la respuesta es "No"
+        respuesta = QMessageBox.question(self, titulo, mensaje, "Si", "No")
+
+        return (respuesta == False)
 
     def ejecutar(self):
         texto = unicode(self.document().toPlainText())
         self.ventana_interprete.ejecutar_codigo_como_string(texto)
 
     def guardar_contenido_con_dialogo(self):
-        ruta = self.abrir_dialogo_guardar()
+        ruta = self.abrir_dialogo_guardar_archivo()
 
         if ruta:
             self.guardar_contenido_en_el_archivo(ruta)
             self._cambios_sin_guardar = False
             self.nombre_de_archivo_sugerido = ruta
+            self.mensaje_contenido_guardado()
 
     def obtener_contenido(self):
         return unicode(self.document().toPlainText())

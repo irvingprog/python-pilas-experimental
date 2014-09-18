@@ -20,12 +20,13 @@ from PyQt4.QtGui import QDesktopWidget
 import interprete_textedit
 
 
-class QWidgetLanas(QWidget):
-    def __init__(self, parent=None, scope=None):
-        super(QWidgetLanas, self).__init__(parent)
+class WidgetLanas(QWidget):
+    def __init__(self, parent=None, scope=None, ventana_interprete=None):
+        super(WidgetLanas, self).__init__(parent)
         box = QVBoxLayout()
         box.setMargin(0)
         box.setSpacing(0)
+        self.ventana_interprete = ventana_interprete
 
         self.setLayout(box)
 

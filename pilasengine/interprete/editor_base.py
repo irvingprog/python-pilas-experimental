@@ -2,15 +2,17 @@
 import codecs
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import (QTextEdit, QTextCursor, QFileDialog)
+from PyQt4.QtGui import (QTextEdit, QTextCursor, QFileDialog,
+                         QMessageBox)
 
 import autocomplete
 import editor_con_deslizador
 import highlighter
 
-
 class EditorBase(autocomplete.CompletionTextEdit,
                  editor_con_deslizador.EditorConDeslizador):
+    """Editor de texto basado en QTextEdit con autocompletador y un deslizador
+    para modificar variables asociadas a objetos enteros o flotantes"""
 
     def __init__(self):
         autocomplete.CompletionTextEdit.__init__(self, None)
@@ -49,15 +51,23 @@ class EditorBase(autocomplete.CompletionTextEdit,
         tc.select(QTextCursor.WordUnderCursor)
         return tc.selectedText()
 
+    def _get_position_in_block(self):
+        raise NotImplementedError('Es necesario sobreescribir el metodo \
+                                    _get_position_in_block')
+
     def cambiar_tamano_fuente(self, delta):
         if delta < 0:
             self.zoomOut(1)
         elif delta > 0:
             self.zoomIn(1)
-
         self.ensureCursorVisible()
 
-    def abrir_dialogo_guardar(self):
+    def definir_fuente(self, fuente):
+        self.setFont(fuente)
+        self.font_family = fuente.rawName()
+        self.font_size = fuente.pointSize()
+
+    def abrir_dialogo_guardar_archivo(self):
         return QFileDialog.getSaveFileName(self, "Guardar Archivo",
                                            self.nombre_de_archivo_sugerido,
                                            "Archivos python (*.py)",
@@ -76,6 +86,11 @@ class EditorBase(autocomplete.CompletionTextEdit,
         texto = self.obtener_contenido()
         with codecs.open(unicode(ruta), 'w', 'utf-8') as archivo:
             archivo.write(texto)
+
+    def mensaje_contenido_guardado(self):
+        QMessageBox.information(self, 'Contenido guardado',
+                               'Se ha guardado el archivo',
+                               'De acuerdo')
 
     def _cargar_resaltador_de_sintaxis(self):
         self._highlighter = highlighter.Highlighter(

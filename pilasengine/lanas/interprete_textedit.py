@@ -32,6 +32,7 @@ class InterpreteTextEdit(editor_base.EditorBase):
     def __init__(self, parent):
         super(InterpreteTextEdit,  self).__init__()
         self.ventana = parent
+        self.ventana_interprete = self.ventana.ventana_interprete
         self.stdout_original = sys.stdout
         sys.stdout = io.NormalOutput(self)
         sys.stderr = io.ErrorOutput(self)
@@ -66,43 +67,11 @@ class InterpreteTextEdit(editor_base.EditorBase):
     def insertFromMimeData(self, source):
         QTextEdit.insertPlainText(self, source.text())
 
-    def funcion_valores_autocompletado(self, texto):
-        scope = self.interpreterLocals
-        texto = texto.replace('(', ' ').split(' ')[-1]
-        resultados = []
-
-        if '.' in texto:
-            palabras = texto.split('.')
-            ultima = palabras.pop()
-            prefijo = '.'.join(palabras)
-
-            try:
-                items = eval("[(x, callable(getattr(eval('%s'), x))) for x in dir(%s)]" %(prefijo, prefijo), scope)
-                elementos = []
-
-                for (x, invocable) in items:
-                    if invocable:
-                        elementos.append(x + '(')
-                    else:
-                        elementos.append(x)
-
-            except:
-                # TODO: notificar este error de autocompletado en algun lado...
-                return []
-
-            resultados = [a for a in elementos if a.startswith(ultima)]
-        else:
-            resultados = [a for a in scope.keys() if a.startswith(texto)]
-
-        return resultados
-
     def canInsertFromMimeData(self, *k):
         return False
 
     def imprimir_linea(self, linea):
         self.insertPlainText(linea)
-
-
 
     def insertar_error(self, mensaje):
         self.insertHtml(u" <b style='color: #FF0000'> &nbsp; × %s </b>" %(mensaje))
@@ -161,10 +130,10 @@ class InterpreteTextEdit(editor_base.EditorBase):
         line.rstrip()
         return line
 
-    def _get_current_word(self):
+    def _get_position_in_block(self):
         tc = self.textCursor()
-        tc.select(QTextCursor.WordUnderCursor)
-        return tc.selectedText()
+        position = tc.positionInBlock() - 3
+        return position
 
     def _get_current_block_prefix(self):
         tc = self.textCursor()
@@ -404,15 +373,12 @@ class InterpreteTextEdit(editor_base.EditorBase):
         self.ventana.tip_widget.setText(linea)
 
     def guardar_contenido_con_dialogo(self):
-        filename = QFileDialog.getSaveFileName(self, 'Guardar archivo',
-                                               self.nombre_de_archivo_sugerido,
-                                               'Archivos python (*.py)')
+        ruta = self.abrir_dialogo_guardar_archivo()
 
-        if filename:
-            fname = open(filename, 'w')
-            texto = self.obtener_contenido_completo()
-            fname.write(texto)
-            fname.close()
+        if ruta:
+            self.guardar_contenido_en_el_archivo(ruta)
+            self.nombre_de_archivo_sugerido = ruta
+            self.mensaje_contenido_guardado()
 
     def _ha_ingresado_solo_espacios(self, linea):
         # TODO: Reemplazar por una expresion regular para
@@ -420,11 +386,11 @@ class InterpreteTextEdit(editor_base.EditorBase):
         if linea == "    ":
             return True
 
-    def obtener_contenido_completo(self):
+    def obtener_contenido(self):
         texto = self.document().toPlainText()
         texto = texto.replace(u'‥ ', '')
         texto = texto.replace(u'» ', '')
-        return texto
+        return unicode(texto)
 
     def marker_si_es_necesario(self):
         line = unicode(self.document().lastBlock().text())

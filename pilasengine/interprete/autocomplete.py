@@ -144,11 +144,7 @@ class CompletionTextEdit(QtGui.QTextEdit):
     def _eliminar_pares_de_caracteres(self, es_consola=True):
         tc = self.textCursor()
         line = self._get_current_line()
-        if es_consola:
-            # La posición del cursor es diferente por '» '
-            position = tc.positionInBlock() - 3
-        else:
-            position = tc.positionInBlock() - 1
+        position = self._get_position_in_block()
         try:
             char = str(line[position])
             nextchar = str(line[position+1])

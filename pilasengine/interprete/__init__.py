@@ -80,11 +80,6 @@ class VentanaInterprete(Ui_InterpreteWindow):
         #self._conectar_botones_del_editor()
         self._conectar_observadores_splitters()
 
-    def consultar_si_quiere_perder_cambios(self):
-        titulo = u"¿Quieres salir?"
-        aviso = u"Se perderán los cambios sin guardar... ¿Quieres perder los cambios del editor realmente?"
-        return self._consultar(self.main, titulo, aviso)
-
     def on_close_event(self, evento):
 
         if not self.editor.tiene_cambios_sin_guardar():
@@ -98,15 +93,7 @@ class VentanaInterprete(Ui_InterpreteWindow):
         else:
             evento.ignore()
 
-    def _consultar(self, parent, titulo, mensaje):
-        """Realizar una consulta usando un cuadro de dialogo simple.
 
-        Este método retorna True si el usuario acepta la pregunta."""
-        # TODO: reemplazar por un dialogo que no tenga los botones YES NO, sino algo en español: http://stackoverflow.com/questions/15682665/how-to-add-custom-button-to-a-qmessagebox-in-pyqt4
-        respuesta = QMessageBox.question(parent, titulo, mensaje,
-                                         QMessageBox.Yes,
-                                         QMessageBox.No)
-        return (respuesta == QMessageBox.Yes)
 
     def _conectar_botones(self):
         # Botón del editor
@@ -364,7 +351,7 @@ class VentanaInterprete(Ui_InterpreteWindow):
                             pilas = pilasengine.iniciar()
                             mono = pilas.actores.Mono()'''
 
-        qwidget_lanas = lanas.ventana.QWidgetLanas(self.splitter, self.scope)
+        qwidget_lanas = lanas.ventana.WidgetLanas(self.splitter, self.scope, self)
         #qwidget_lanas.text_edit.insertar_codigo(codigo_inicial)
         self.console.addWidget(qwidget_lanas)
         self.console.setCurrentWidget(qwidget_lanas)
